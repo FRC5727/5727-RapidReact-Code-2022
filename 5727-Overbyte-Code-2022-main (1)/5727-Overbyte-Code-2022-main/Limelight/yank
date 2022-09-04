@@ -1,0 +1,7 @@
+#!/bin/bash
+b='http://10.57.27.11:5801/snapshots/'
+[[ $1 ]] && mkdir "$1" && cd "$1" || exit 1
+for i in $(curl -s "$b" | sed -n -e 's/.*href="\([^"]*jpg\)".*/\1/p'); do
+	echo $i
+	curl -so "$i" "$b$i"
+done
